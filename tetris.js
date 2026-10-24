@@ -334,6 +334,34 @@
     }
   }
 
+  // ---- Touch / pointer controls ----
+  function doAction(action) {
+    if (!running) return;
+    if (action === "pause") {
+      togglePause();
+      return;
+    }
+    if (paused || gameOver) return;
+    switch (action) {
+      case "left":
+        move(-1);
+        break;
+      case "right":
+        move(1);
+        break;
+      case "down":
+        softDrop();
+        break;
+      case "rotate":
+        tryRotate();
+        break;
+      case "drop":
+        hardDrop();
+        break;
+    }
+    draw();
+  }
+
   // ---- Input ----
   document.addEventListener("keydown", (e) => {
     if (!running) return;
@@ -366,6 +394,49 @@
     }
     if (running && !paused && !gameOver) draw();
   });
+
+  // ---- Touch / pointer controls ----
+  const tbtns = document.querySelectorAll("#touch-controls .tbtn");
+  const repeatTimers = {};
+
+  function holdRepeat(action) {
+    doAction(action);
+    repeatTimers[action] = setInterval(() => doAction(action), 130);
+  }
+  function stopRepeat(action) {
+    if (repeatTimers[action]) {
+      clearInterval(repeatTimers[action]);
+      delete repeatTimers[action];
+    }
+  }
+
+  tbtns.forEach((btn) => {
+    const action = btn.dataset.action;
+    btn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      if (action === "rotate" || action === "drop") {
+        doAction(action);
+      } else {
+        holdRepeat(action);
+      }
+    });
+    const end = (e) => {
+      e.preventDefault();
+      stopRepeat(action);
+    };
+    btn.addEventListener("pointerup", end);
+    btn.addEventListener("pointercancel", end);
+    btn.addEventListener("pointerleave", () => stopRepeat(action));
+  });
+
+  // Stop page scroll / zoom while interacting with the play area
+  document.addEventListener(
+    "touchmove",
+    (e) => {
+      if (e.target.closest(".game")) e.preventDefault();
+    },
+    { passive: false }
+  );
 
   startBtn.addEventListener("click", start);
   pauseBtn.addEventListener("click", togglePause);

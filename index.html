@@ -8,11 +8,24 @@
 </head>
 <body>
   <div class="game">
-    <div class="board-wrap">
+    <div class="board-col">
+      <div class="board-wrap">
       <canvas id="board" width="300" height="600"></canvas>
       <div id="overlay" class="overlay hidden">
         <div class="overlay-title" id="overlay-title">PAUSED</div>
         <div class="overlay-sub" id="overlay-sub">Press P to resume</div>
+      </div>
+    </div>
+
+    <div class="touch-controls" id="touch-controls">
+      <div class="touch-row">
+        <button type="button" data-action="left" class="tbtn" aria-label="Move left">←</button>
+        <button type="button" data-action="rotate" class="tbtn" aria-label="Rotate">⟳</button>
+        <button type="button" data-action="right" class="tbtn" aria-label="Move right">→</button>
+      </div>
+      <div class="touch-row">
+        <button type="button" data-action="down" class="tbtn" aria-label="Soft drop">↓</button>
+        <button type="button" data-action="drop" class="tbtn wide" aria-label="Hard drop">DROP</button>
       </div>
     </div>
 
