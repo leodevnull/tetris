@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tetris</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="game">
+    <div class="board-wrap">
+      <canvas id="board" width="300" height="600"></canvas>
+      <div id="overlay" class="overlay hidden">
+        <div class="overlay-title" id="overlay-title">PAUSED</div>
+        <div class="overlay-sub" id="overlay-sub">Press P to resume</div>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <h1 class="title">TETRIS</h1>
+
+      <div class="panels">
+        <div class="panel">
+          <span class="panel-label">SCORE</span>
+          <span class="panel-value" id="score">0</span>
+        </div>
+        <div class="panel">
+          <span class="panel-label">LINES</span>
+          <span class="panel-value" id="lines">0</span>
+        </div>
+        <div class="panel">
+          <span class="panel-label">LEVEL</span>
+          <span class="panel-value" id="level">1</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <span class="panel-label">NEXT</span>
+        <canvas id="next" width="120" height="120"></canvas>
+      </div>
+
+      <div class="controls">
+        <button id="start-btn" class="btn primary">Start</button>
+        <button id="pause-btn" class="btn">Pause</button>
+      </div>
+
+      <div class="help">
+        <div class="help-row"><span class="key">← →</span> Move</div>
+        <div class="help-row"><span class="key">↑</span> Rotate</div>
+        <div class="help-row"><span class="key">↓</span> Soft drop</div>
+        <div class="help-row"><span class="key">Space</span> Hard drop</div>
+        <div class="help-row"><span class="key">P</span> Pause</div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="tetris.js"></script>
+</body>
+</html>
